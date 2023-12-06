@@ -1,0 +1,18 @@
+{
+    "sourceFile": "02-get-data-from-api/src/app/submit-text.component.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1701868562773,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1701868562773,
+            "name": "Commit-0",
+            "content": "import { Component, EventEmitter, Output } from '@angular/core';\n\n@Component({\n  selector: 'app-submit-text',\n  standalone: true,\n  imports: [],\n  template: `\n    <div>\n      <input \n        #addInput \n        (keyup.enter)=\"submitText.emit(addInput.value); addInput.value = ''\"\n        class=\"border-b border-b-orange-400 outline-none\" type=\"text\"\n      />\n      <button\n        (click)=\"submitText.emit(addInput.value); addInput.value = ''\"\n        class=\"border border-orange-400 ml-4 px-4\"\n      >\n        Add\n      </button>\n    </div>\n  `,\n  styles: [\n  `\n    input:focus + button {\n      @apply text-orange-400;\n    }\n  `],\n})\nexport class SubmitTextComponent {\n  @Output() submitText = new EventEmitter<string>();\n}\n"
+        }
+    ]
+}

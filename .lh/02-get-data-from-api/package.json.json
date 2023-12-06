@@ -1,0 +1,18 @@
+{
+    "sourceFile": "02-get-data-from-api/package.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1701866687435,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1701866687435,
+            "name": "Commit-0",
+            "content": "{\n  \"name\": \"01-components-basics\",\n  \"version\": \"0.0.0\",\n  \"scripts\": {\n    \"ng\": \"ng\",\n    \"start\": \"ng serve\",\n    \"build\": \"ng build\",\n    \"watch\": \"ng build --watch --configuration development\",\n    \"api\": \"json-server db.json\"\n  },\n  \"private\": true,\n  \"dependencies\": {\n    \"@angular/animations\": \"^17.0.0\",\n    \"@angular/common\": \"^17.0.0\",\n    \"@angular/compiler\": \"^17.0.0\",\n    \"@angular/core\": \"^17.0.0\",\n    \"@angular/forms\": \"^17.0.0\",\n    \"@angular/platform-browser\": \"^17.0.0\",\n    \"@angular/platform-browser-dynamic\": \"^17.0.0\",\n    \"@angular/router\": \"^17.0.0\",\n    \"rxjs\": \"~7.8.0\",\n    \"tslib\": \"^2.3.0\",\n    \"zone.js\": \"~0.14.2\"\n  },\n  \"devDependencies\": {\n    \"@angular-devkit/build-angular\": \"^17.0.5\",\n    \"@angular/cli\": \"^17.0.5\",\n    \"@angular/compiler-cli\": \"^17.0.0\",\n    \"json-server\": \"^0.17.4\",\n    \"tailwindcss\": \"^3.3.6\",\n    \"typescript\": \"~5.2.2\"\n  }\n}\n"
+        }
+    ]
+}

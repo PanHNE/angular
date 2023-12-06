@@ -1,0 +1,22 @@
+{
+    "sourceFile": "02-get-data-from-api/src/app/tasks-list.component.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1701867025315,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1701868807560,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,27 +1,26 @@\n-import { NgFor } from '@angular/common';\n-import { Component, Input } from '@angular/core';\n-import { Task } from './Task';\n+import { Component, Input } from \"@angular/core\";\n+import { Task } from \"./Task\";\n+import { NgFor } from \"@angular/common\";\n \n @Component({\n-  selector: 'app-tasks-list',\n+  selector: \"app-tasks-list\",\n   standalone: true,\n   imports: [NgFor],\n   template: `\n     <ul>\n-        <li *ngFor=\"let task of tasks\">\n-          <button [class.line-through]=\"task.done\" (click)=\"toggleDoneStatus(task)\">\n-              {{task.name}}\n-          </button>\n-        </li>\n+      <li *ngFor=\"let task of tasks\">\n+        <button [class.line-through]=\"task.done\" (click)=\"toggleDoneStatus(task)\">\n+          {{ task.name }}\n+        </button>\n+      </li>\n     </ul>\n-    `\n+  `,\n+  styles: [],\n })\n-\n export class TasksListComponent {\n-  tasks: Task[] = [];\n+  @Input({ required: true }) tasks: Task[] = [];\n \n   toggleDoneStatus(task: Task) {\n     task.done = !task.done;\n   }\n-\n-}\n+}\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1701867025315,
+            "name": "Commit-0",
+            "content": "import { NgFor } from '@angular/common';\nimport { Component, Input } from '@angular/core';\nimport { Task } from './Task';\n\n@Component({\n  selector: 'app-tasks-list',\n  standalone: true,\n  imports: [NgFor],\n  template: `\n    <ul>\n        <li *ngFor=\"let task of tasks\">\n          <button [class.line-through]=\"task.done\" (click)=\"toggleDoneStatus(task)\">\n              {{task.name}}\n          </button>\n        </li>\n    </ul>\n    `\n})\n\nexport class TasksListComponent {\n  tasks: Task[] = [];\n\n  toggleDoneStatus(task: Task) {\n    task.done = !task.done;\n  }\n\n}\n"
+        }
+    ]
+}

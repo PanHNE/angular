@@ -1,0 +1,42 @@
+{
+    "sourceFile": "02-get-data-from-api/src/app/tasks-list.page.component.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1701867128192,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1701868676106,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,27 +1,23 @@\n import { NgFor } from '@angular/common';\n import { Component, Input } from '@angular/core';\n import { Task } from './Task';\n+import { SubmitTextComponent } from \"./submit-text.component\";\n \n @Component({\n-  selector: 'app-tasks-list',\n-  standalone: true,\n-  imports: [NgFor],\n-  template: `\n-    <ul>\n-        <li *ngFor=\"let task of tasks\">\n-          <button [class.line-through]=\"task.done\" (click)=\"toggleDoneStatus(task)\">\n-              {{task.name}}\n-          </button>\n-        </li>\n-    </ul>\n+    selector: 'app-tasks-list',\n+    standalone: true,\n+    imports: [NgFor, SubmitTextComponent],\n+    template: `\n+      <app-submit-text (submitText)=\"addTask($event)\" />\n+      <app-tasks-list class=\"block mt-4\" [tasks]=\"tasks\" />\n     `\n })\n \n export class TasksListPageComponent {\n   tasks: Task[] = []\n   \n-  addTesk(id: number, name: string) {\n+  addTask(id: number, name: string) {\n     this.tasks.push({\n       id: id,\n       name: name,\n       done: false\n"
+                },
+                {
+                    "date": 1701868703641,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,11 +15,11 @@\n \n export class TasksListPageComponent {\n   tasks: Task[] = []\n   \n-  addTask(id: number, name: string) {\n+  addTask(name: string) {\n     this.tasks.push({\n-      id: id,\n+      id: 1,\n       name: name,\n       done: false\n     })\n   }\n"
+                },
+                {
+                    "date": 1701868719791,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,18 @@\n     `\n })\n \n export class TasksListPageComponent {\n-  tasks: Task[] = []\n+  tasks = [\n+    {\n+      name: \"Angular introduction\",\n+      done: false,\n+    },\n+    {\n+      name: \"Learn components\",\n+      done: true,\n+    },\n+  ];\n   \n   addTask(name: string) {\n     this.tasks.push({\n       id: 1,\n"
+                },
+                {
+                    "date": 1701868815326,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,17 +1,18 @@\n import { NgFor } from '@angular/common';\n import { Component, Input } from '@angular/core';\n import { Task } from './Task';\n import { SubmitTextComponent } from \"./submit-text.component\";\n+import { TasksListComponent } from \"./tasks-list.component\";\n \n @Component({\n-    selector: 'app-tasks-list',\n+    selector: 'app-tasks-list-page',\n     standalone: true,\n-    imports: [NgFor, SubmitTextComponent],\n     template: `\n       <app-submit-text (submitText)=\"addTask($event)\" />\n       <app-tasks-list class=\"block mt-4\" [tasks]=\"tasks\" />\n-    `\n+    `,\n+    imports: [NgFor, SubmitTextComponent, TasksListComponent]\n })\n \n export class TasksListPageComponent {\n   tasks = [\n"
+                },
+                {
+                    "date": 1701868849828,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,6 @@\n import { NgFor } from '@angular/common';\n import { Component, Input } from '@angular/core';\n-import { Task } from './Task';\n import { SubmitTextComponent } from \"./submit-text.component\";\n import { TasksListComponent } from \"./tasks-list.component\";\n \n @Component({\n"
+                },
+                {
+                    "date": 1701869068738,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,20 +1,18 @@\n-import { NgFor } from '@angular/common';\n-import { Component, Input } from '@angular/core';\n+import { Component } from \"@angular/core\";\n+import { TasksListComponent } from \"./tasks-list.component\";\n import { SubmitTextComponent } from \"./submit-text.component\";\n-import { TasksListComponent } from \"./tasks-list.component\";\n \n @Component({\n-    selector: 'app-tasks-list-page',\n-    standalone: true,\n-    template: `\n-      <app-submit-text (submitText)=\"addTask($event)\" />\n-      <app-tasks-list class=\"block mt-4\" [tasks]=\"tasks\" />\n-    `,\n-    imports: [NgFor, SubmitTextComponent, TasksListComponent]\n+  selector: \"app-task-list-page\",\n+  standalone: true,\n+  imports: [TasksListComponent, SubmitTextComponent],\n+  template: `\n+    <app-submit-text (submitText)=\"addTask($event)\" />\n+    <app-tasks-list class=\"block mt-4\" [tasks]=\"tasks\" />\n+  `,\n })\n-\n-export class TasksListPageComponent {\n+export class TaskListPageComponent {\n   tasks = [\n     {\n       name: \"Angular introduction\",\n       done: false,\n@@ -23,13 +21,12 @@\n       name: \"Learn components\",\n       done: true,\n     },\n   ];\n-  \n+\n   addTask(name: string) {\n     this.tasks.push({\n-      id: 1,\n-      name: name,\n-      done: false\n-    })\n+      name,\n+      done: false,\n+    });\n   }\n-}\n+}\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1701867128192,
+            "name": "Commit-0",
+            "content": "import { NgFor } from '@angular/common';\nimport { Component, Input } from '@angular/core';\nimport { Task } from './Task';\n\n@Component({\n  selector: 'app-tasks-list',\n  standalone: true,\n  imports: [NgFor],\n  template: `\n    <ul>\n        <li *ngFor=\"let task of tasks\">\n          <button [class.line-through]=\"task.done\" (click)=\"toggleDoneStatus(task)\">\n              {{task.name}}\n          </button>\n        </li>\n    </ul>\n    `\n})\n\nexport class TasksListPageComponent {\n  tasks: Task[] = []\n  \n  addTesk(id: number, name: string) {\n    this.tasks.push({\n      id: id,\n      name: name,\n      done: false\n    })\n  }\n}\n"
+        }
+    ]
+}
