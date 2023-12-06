@@ -3,8 +3,8 @@ import { Task } from "./Task";
 import { NgFor, NgIf } from "@angular/common";
 import { NgIconComponent, provideIcons } from "@ng-icons/core";
 import { featherCalendar } from "@ng-icons/feather-icons";
-import { RemoveItemButtonComponent } from "./remove-item-button.component";
-import { AutosizeTextareaComponent } from "./autosize-textarea.component";
+import { RemoveItemButtonComponent } from "../ui/remove-item-button.component";
+import { AutosizeTextareaComponent } from "../ui/autosize-textarea.component";
 import { TasksService } from "./tasks.service";
 
 @Component({

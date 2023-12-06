@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Task } from "./Task";
-import { ListFetchingError } from "./list-state.type";
-import { wait } from "./wait";
+import { ListFetchingError } from "../utils/list-state.type";
+import { wait } from "../utils/wait";
 
 @Injectable({
   providedIn: "root",
@@ -12,13 +12,15 @@ export class TasksService {
   async getAll() {
     await wait();
 
-    return fetch(`${this.URL}/tasks`).then<Task[] | ListFetchingError>((response) => {
-      if (response.ok) {
-        return response.json();
-      }
+    return fetch(`${this.URL}/tasks`).then<Task[] | ListFetchingError>(
+      (response) => {
+        if (response.ok) {
+          return response.json();
+        }
 
-      return { status: response.status, message: response.statusText };
-    });
+        return { status: response.status, message: response.statusText };
+      }
+    );
   }
 
   async add(name: string) {
