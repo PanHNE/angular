@@ -1,12 +1,12 @@
 {
-  "name": "03-crud-and-services-basics",
+  "name": "09-http-client",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "api": "json-server db.json"
+    "api": "node server/server"
   },
   "private": true,
   "dependencies": {
