@@ -50,31 +50,33 @@ export class TaskListPageComponent {
   getAllTasks(searchParams: GetAllTasksSearchParams): void {
     this.listState = { state: LIST_STATE_VALUE.LOADING };
 
-    this.tasksService.getAll(searchParams).then((response) => {
-      if (Array.isArray(response)) {
+    this.tasksService.getAll(searchParams).subscribe({
+      next: (result) => {
         this.listState = {
           state: LIST_STATE_VALUE.SUCCESS,
-          results: response,
+          results: result.body!,
         };
-      } else {
+      },
+      error: (err) => {
         this.listState = {
           state: LIST_STATE_VALUE.ERROR,
-          error: response,
+          error: err,
         };
-      }
+      },
     });
   }
 
   addTask(name: string, tasks: Task[]): void {
-    this.tasksService.add(name).then((response) => {
-      if ("id" in response) {
+    this.tasksService.add(name).subscribe({
+      next: (result) => {
         this.listState = {
           state: LIST_STATE_VALUE.SUCCESS,
-          results: tasks.concat(response),
+          results: tasks.concat(result),
         };
-      } else {
-        alert(response.message);
-      }
+      },
+      error: (err) => {
+        alert(err.message);
+      },
     });
   }
 }
