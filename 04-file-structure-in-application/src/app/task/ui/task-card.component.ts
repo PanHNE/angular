@@ -5,11 +5,11 @@ import { RemoveItemButtonComponent } from "@ui/remove-item-button.component";
 import { AutosizeTextareaComponent } from "@ui/autosize-textarea.component";
 import { NgIconComponent } from "@ng-icons/core";
 import { TaskUpdatePayload, TasksService } from "../data-access/tasks.service";
+import { CustomDatePipe } from "../../utils/pipes/CustomDatePipe";
 
 @Component({
   selector: "app-task-card",
   standalone: true,
-  imports: [RemoveItemButtonComponent, AutosizeTextareaComponent, NgIconComponent, NgIf],
   template: `
     <div class="rounded-md shadow-md p-4 block" [class.bg-green-300]="task.done">
       <button
@@ -35,26 +35,33 @@ import { TaskUpdatePayload, TasksService } from "../data-access/tasks.service";
           </ng-template>
         </section>
         <footer class=" pt-2 flex items-center justify-end">
-          <ng-icon name="featherCalendar" class="text-sm" />
+          <ng-icon
+            [title]="task.createdAt | customDate"
+            name="featherCalendar"
+            class="text-sm"
+          />
         </footer>
       </button>
     </div>
   `,
+  imports: [
+    RemoveItemButtonComponent,
+    AutosizeTextareaComponent,
+    NgIconComponent,
+    NgIf,
+    CustomDatePipe,
+  ],
 })
 export class TaskCardComponent {
   @Input({ required: true }) task!: Task;
 
   @Output() update = new EventEmitter<TaskUpdatePayload>();
   @Output() delete = new EventEmitter<void>();
-
-  removeMode = false;
   editMode = false;
 
   taskOnEditId: number | null = null;
 
   isSingleClick = true;
-
-  private tasksService = inject(TasksService);
 
   updateTaskName(updatedName: string) {
     this.update.emit({ name: updatedName });
