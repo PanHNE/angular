@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Task } from "../model/Task";
 import { ListFetchingError } from "../../utils/list-state.type";
-import { wait } from "../../utils/wait";
 
 @Injectable({
   providedIn: "root",
@@ -10,8 +9,6 @@ export class TasksService {
   private URL = "http://localhost:3000";
 
   async getAll() {
-    await wait();
-
     return fetch(`${this.URL}/tasks`).then<Task[] | ListFetchingError>(
       (response) => {
         if (response.ok) {
@@ -24,8 +21,6 @@ export class TasksService {
   }
 
   async add(name: string) {
-    await wait();
-
     return fetch(`${this.URL}/tasks`, {
       method: "POST",
       headers: {
@@ -46,8 +41,6 @@ export class TasksService {
   }
 
   async delete(taskId: number) {
-    await wait();
-
     return fetch(`${this.URL}/tasks/${taskId}`, {
       method: "DELETE",
     }).then<Error | undefined>((response) => {
@@ -60,8 +53,6 @@ export class TasksService {
   }
 
   async update(taskId: number, name: string) {
-    await wait();
-
     return fetch(`${this.URL}/tasks/${taskId}`, {
       method: "PATCH",
       headers: {
