@@ -1,15 +1,22 @@
-import { Component, EventEmitter, Input, Output, inject } from "@angular/core";
-import { CommonModule, NgIf } from "@angular/common";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { Task } from "../model/Task";
 import { RemoveItemButtonComponent } from "@ui/remove-item-button.component";
 import { AutosizeTextareaComponent } from "@ui/autosize-textarea.component";
 import { NgIconComponent } from "@ng-icons/core";
-import { TaskUpdatePayload, TasksService } from "../data-access/tasks.service";
-import { CustomDatePipe } from "../../utils/pipes/CustomDatePipe";
+import { NgIf } from "@angular/common";
+import { TaskUpdatePayload } from "../data-access/tasks.service";
+import { CustomDatePipe } from "src/app/utils/pipes/custom-date.pipe";
 
 @Component({
   selector: "app-task-card",
   standalone: true,
+  imports: [
+    RemoveItemButtonComponent,
+    NgIf,
+    CustomDatePipe,
+    AutosizeTextareaComponent,
+    NgIconComponent,
+  ],
   template: `
     <div class="rounded-md shadow-md p-4 block" [class.bg-green-300]="task.done">
       <button
@@ -22,8 +29,8 @@ import { CustomDatePipe } from "../../utils/pipes/CustomDatePipe";
         </header>
         <section class="text-left">
           <app-autosize-textarea
-            *ngIf="editMode && taskOnEditId === task.id; else previewModeTemplate"
-            (keyup.escape)="editMode = false; taskOnEditId = task.id"
+            *ngIf="editMode; else previewModeTemplate"
+            (keyup.escape)="editMode = false"
             (submitText)="updateTaskName($event)"
             [value]="task.name"
           />
@@ -35,31 +42,20 @@ import { CustomDatePipe } from "../../utils/pipes/CustomDatePipe";
           </ng-template>
         </section>
         <footer class=" pt-2 flex items-center justify-end">
-          <ng-icon
-            [title]="task.createdAt | customDate"
-            name="featherCalendar"
-            class="text-sm"
-          />
+          <span class="text-xs pr-1">{{ task.createdAt | customDate }} </span>
+          <ng-icon name="featherCalendar" class="text-sm" />
         </footer>
       </button>
     </div>
   `,
-  imports: [
-    RemoveItemButtonComponent,
-    AutosizeTextareaComponent,
-    NgIconComponent,
-    NgIf,
-    CustomDatePipe,
-  ],
+  styles: [],
 })
 export class TaskCardComponent {
   @Input({ required: true }) task!: Task;
-
   @Output() update = new EventEmitter<TaskUpdatePayload>();
   @Output() delete = new EventEmitter<void>();
-  editMode = false;
 
-  taskOnEditId: number | null = null;
+  editMode = false;
 
   isSingleClick = true;
 
@@ -76,7 +72,7 @@ export class TaskCardComponent {
       if (this.isSingleClick) {
         this.update.emit({ done: !this.task.done });
       }
-    }, 150);
+    }, 200);
   }
 
   switchToEditMode() {

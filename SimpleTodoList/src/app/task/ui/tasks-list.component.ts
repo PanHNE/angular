@@ -1,11 +1,11 @@
-import { Component, Inject, Input, inject } from "@angular/core";
+import { Component, Input, inject } from "@angular/core";
 import { Task } from "../model/Task";
 import { NgFor, NgIf } from "@angular/common";
 import { NgIconComponent, provideIcons } from "@ng-icons/core";
 import { featherCalendar } from "@ng-icons/feather-icons";
-import { RemoveItemButtonComponent } from "../../shared/ui/remove-item-button.component";
 import { TaskUpdatePayload, TasksService } from "../data-access/tasks.service";
-import { AutosizeTextareaComponent } from "src/app/shared/ui/autosize-textarea.component";
+import { AutosizeTextareaComponent } from "@ui/autosize-textarea.component";
+import { RemoveItemButtonComponent } from "@ui/remove-item-button.component";
 import { TaskCardComponent } from "./task-card.component";
 
 @Component({
@@ -31,6 +31,7 @@ import { TaskCardComponent } from "./task-card.component";
       </li>
     </ul>
   `,
+  styles: [],
 })
 export class TasksListComponent {
   @Input({ required: true }) tasks: Task[] = [];
@@ -53,7 +54,7 @@ export class TasksListComponent {
         alert(res.message);
       } else {
         this.tasks = this.tasks.map((task) => {
-          if (task.id === taskId) {
+          if (task.id === res.id) {
             return res;
           } else {
             return task;

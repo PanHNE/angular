@@ -24,7 +24,7 @@ export class AutosizeTextareaComponent {
   @Output() submitText = new EventEmitter<string>();
 
   protected emit(textarea: HTMLTextAreaElement) {
-    this.submitText.emit(textarea.value);
+    this.submitText.emit(textarea.value.trim());
 
     if (this.clearAfterEmit) {
       textarea.value = "";
