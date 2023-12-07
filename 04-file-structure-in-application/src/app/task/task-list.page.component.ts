@@ -1,18 +1,26 @@
 import { Component, inject } from "@angular/core";
-import { TasksListComponent } from "./tasks-list.component";
-import { SubmitTextComponent } from "./submit-text.component";
-import { Task } from "./Task";
+import { TasksListComponent } from "./ui/tasks-list.component";
+import { SubmitTextComponent } from "../shared/ui/submit-text.component";
+import { Task } from "./model/Task";
 import { NgIf } from "@angular/common";
-import { TasksService } from "./tasks.service";
-import { ComponentListState } from "./list-state.type";
+import { TasksService } from "./data-access/tasks.service";
+import { ComponentListState } from "../utils/list-state.type";
 
 @Component({
   selector: "app-task-list-page",
   standalone: true,
   imports: [TasksListComponent, SubmitTextComponent, NgIf],
   template: `
-    <app-submit-text (submitText)="listState.state === 'success' && addTask($event, listState.results)" />
-    <app-tasks-list *ngIf="listState.state === 'success'" class="block mt-4" [tasks]="listState.results" />
+    <app-submit-text
+      (submitText)="
+        listState.state === 'success' && addTask($event, listState.results)
+      "
+    />
+    <app-tasks-list
+      *ngIf="listState.state === 'success'"
+      class="block mt-4"
+      [tasks]="listState.results"
+    />
     <p *ngIf="listState.state === 'error'">{{ listState.error.message }}</p>
     <p *ngIf="listState.state === 'loading'">Loading...</p>
   `,
