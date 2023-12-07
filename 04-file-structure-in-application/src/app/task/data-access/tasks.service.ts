@@ -2,6 +2,8 @@ import { Injectable } from "@angular/core";
 import { Task } from "../model/Task";
 import { ListFetchingError } from "../../utils/list-state.type";
 
+export type TaskUpdatePayload = { done?: boolean; name?: string };
+
 @Injectable({
   providedIn: "root",
 })
@@ -9,15 +11,13 @@ export class TasksService {
   private URL = "http://localhost:3000";
 
   async getAll() {
-    return fetch(`${this.URL}/tasks`).then<Task[] | ListFetchingError>(
-      (response) => {
-        if (response.ok) {
-          return response.json();
-        }
-
-        return { status: response.status, message: response.statusText };
+    return fetch(`${this.URL}/tasks`).then<Task[] | ListFetchingError>((response) => {
+      if (response.ok) {
+        return response.json();
       }
-    );
+
+      return { status: response.status, message: response.statusText };
+    });
   }
 
   async add(name: string) {
@@ -52,15 +52,13 @@ export class TasksService {
     });
   }
 
-  async update(taskId: number, name: string) {
+  async update(taskId: number, payload: TaskUpdatePayload) {
     return fetch(`${this.URL}/tasks/${taskId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        name: name,
-      } as Task),
+      body: JSON.stringify(payload),
     }).then<Task | Error>((response) => {
       if (response.ok) {
         return response.json();
